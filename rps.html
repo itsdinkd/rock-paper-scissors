@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<title>Chris Johnson - Rock Paper Scissors</title>
+	</head>
+
+
+<body>
+<script type='text/javascript'>
+	function computerPlay() {
+		const choices = ['rock', 'paper', 'scissors']
+		const choice = choices[Math.floor(Math.random() * 3)]
+		return choice;
+	}
+
+
+	function game() {
+		if (gamesPlayed == 5) {
+			if (winCount > compCount) {
+				return 'Winner! You\'ve won' + ' ' + winCount - compCount + ' ' + 'games out of 5' + 
+				' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
+			} else {
+				return 'Loser! Computer beat you by' + ' ' + compCount - winCount + ' ' + 'games out of 5.' +
+			' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';		
+			}
+    	}
+
+		const computerSelection = computerPlay()
+		const playerSelection = prompt("Choose either Rock, Paper, or Scissors.")
+    	return playRound(playerSelection,computerSelection)
+
+	}
+
+
+		function playRound(playerSelection,computerSelection) {
+			const lowerCase = playerSelection.toLowerCase()
+ 			if (computerSelection === lowerCase) {
+ 				++gamesPlayed
+ 				++tieCount
+ 				return computerSelection + ' ' + lowerCase + '. Tie!';
+ 			} else if (computerSelection === 'rock' && lowerCase == 'scissors') {
+ 				++gamesPlayed
+ 				compCount++
+ 				return 'You Lose. Rock beats Scissors.';
+ 			} else if (computerSelection === 'rock' && lowerCase == 'paper') {
+ 				++gamesPlayed
+ 				++winCount
+ 				return 'You Win. Paper beats Rock.';
+ 			} else if (computerSelection === 'scissors' && lowerCase == 'rock') {
+ 				++gamesPlayed
+ 				++winCount 
+ 				return 'You Win. Rock destroys Scissors.';
+ 			} else if (computerSelection === 'scissors' && lowerCase === 'paper') {
+ 				++gamesPlayed
+ 				compCount++
+ 				return 'You Lose. Scissors cuts Paper.';
+ 			} else if (computerSelection === 'paper' && lowerCase === 'scissors') {
+ 				++gamesPlayed
+ 				++winCount 
+ 				return 'You Win. Scissors cuts Paper.'
+ 			} else {
+ 				compCount++
+ 				++gamesPlayed
+ 				return 'You Lose. Rock beats Paper.';
+ 			}
+ 		}
+
+
+ 	let tieCount = 0
+ 	let compCount = 0
+ 	let gamesPlayed = 0
+ 	let 0
+  console.log(game())
+
+	</script>
+</body>
+</html>?
