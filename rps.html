@@ -1,76 +1,144 @@
 <html>
 	<head>
 		<title>Chris Johnson - Rock Paper Scissors</title>
+		<link rel="stylesheet" href="style.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	</head>
-
-
 <body>
+
+<div class='container'>
+
+	<div class='box'>
+
+		<div class='head'>
+			<h1 class="title">Rock, Papers, Scissors, Shoot!</h1>
+		</div>
+
+		<div class="game">
+
+			<div class="game-ticker">
+			<span class="game-result">Click a button below to start</span>
+			</div>
+
+			<div class="game-play">
+				<button class="rock btn" onclick="">Rock</button>
+				<button class="paper btn" onclick="">Paper</button>
+				<button class="scissors btn" onclick="">Scissors</button>
+			</div>
+			<div class="block"></div>
+			<span class="title">Scoreboard</span>
+			<div class="scoreboard">
+				<span class="player-left flex-item">Player Score: <span class="p-score score">0</span> </span>
+				<span class="computer-right flex-item">Computer Score: <span class="c-score score">0</span></span>
+				<span class="tie-center flex-item">Tie Count: <span class="t-score score">0</span></span>
+			</div>
+
+</div>
+		</div>
+	</div>
+</div>
+<audio src="ding.mp3" class='ding'></audio>
 <script type='text/javascript'>
-	function computerPlay() {
-		const choices = ['rock', 'paper', 'scissors']
-		const choice = choices[Math.floor(Math.random() * 3)]
-		return choice;
-	}
+		function computerPlay() {
+			const choices = ['rock', 'paper', 'scissors'];
+			return choices[Math.floor(Math.random() * 3)];
+		}
 
 
-	function game() {
-		if (gamesPlayed == 5) {
-			if (winCount > compCount) {
-				return 'Winner! You\'ve won' + ' ' + winCount - compCount + ' ' + 'games out of 5' + 
-				' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
-			} else {
-				return 'Loser! Computer beat you by' + ' ' + compCount - winCount + ' ' + 'games out of 5.' +
-			' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';		
+		function game(a) {
+			////////////////////
+			// Max Games Logic
+			////////////////////
+
+			// if (gamesPlayed === 5) {
+			// 	if (winCount > compCount) {
+			// 		return 'Winner! You\'ve won' + ' ' + winCount - compCount + ' ' + 'games out of 5' +
+			// 		' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
+			// 	} else {
+			// 		return 'Loser! Computer beat you by' + ' ' + compCount - winCount + ' ' + 'games out of 5.' +
+			// 	' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
+			// 	}
+			// }
+			const playerSelection = a;
+			const computerSelection = computerPlay();
+			return playRound(playerSelection,computerSelection)
+
+		}
+
+
+			function playRound(playerSelection,computerSelection) {
+				const displayWin = document.querySelector('.p-score');
+				const displayComp = document.querySelector('.c-score');
+				const displayTie = document.querySelector('.t-score');
+				const tickerDiv = document.querySelector('.game-ticker');
+				let gameUpdate;
+				++gamesPlayed;
+				document.querySelector('.ding').currentTime = 0;
+				document.querySelector('.ding').play();
+				const lowerCase = playerSelection.toLowerCase();
+
+				if (computerSelection === lowerCase) {
+					++tieCount;
+					displayTie.innerHTML = `${tieCount}`;
+					gameUpdate = computerSelection.toUpperCase() + ' ' + lowerCase.toUpperCase() + '. It\'s a Tie!';
+					return tickerDiv.innerHTML = `${gameUpdate}`;
+				} else if (computerSelection === 'rock' && lowerCase == 'scissors') {
+					++compCount;
+					displayComp.innerHTML = `${compCount}`;
+					return tickerDiv.textContent = 'You Lose. Rock beats Scissors.';
+				} else if (computerSelection === 'rock' && lowerCase == 'paper') {
+					++winCount;
+					displayWin.innerHTML = `${winCount}`;
+					return tickerDiv.textContent = 'You Win. Paper beats Rock.';
+				} else if (computerSelection === 'scissors' && lowerCase == 'rock') {
+					++winCount;
+					displayWin.innerHTML = `${winCount}`;
+					return tickerDiv.textContent = 'You Win. Rock destroys Scissors.';
+				} else if (computerSelection === 'scissors' && lowerCase === 'paper') {
+					++compCount;
+					displayComp.innerHTML = `${compCount}`;
+					return tickerDiv.textContent = 'You Lose. Scissors cuts Paper.';
+				} else if (computerSelection === 'paper' && lowerCase === 'scissors') {
+					++winCount;
+					displayWin.innerHTML = `${winCount}`;
+					return tickerDiv.textContent = 'You Win. Scissors cuts Paper.'
+				} else {
+					++compCount;
+					displayComp.innerHTML = `${compCount}`;
+					return tickerDiv.textContent = 'You Lose. Rock beats Paper.';
+				}
 			}
-    	}
-
-		const computerSelection = computerPlay()
-		const playerSelection = prompt("Choose either Rock, Paper, or Scissors.")
-    	return playRound(playerSelection,computerSelection)
-
-	}
 
 
-		function playRound(playerSelection,computerSelection) {
-			const lowerCase = playerSelection.toLowerCase()
- 			if (computerSelection === lowerCase) {
- 				++gamesPlayed
- 				++tieCount
- 				return computerSelection + ' ' + lowerCase + '. Tie!';
- 			} else if (computerSelection === 'rock' && lowerCase == 'scissors') {
- 				++gamesPlayed
- 				compCount++
- 				return 'You Lose. Rock beats Scissors.';
- 			} else if (computerSelection === 'rock' && lowerCase == 'paper') {
- 				++gamesPlayed
- 				++winCount
- 				return 'You Win. Paper beats Rock.';
- 			} else if (computerSelection === 'scissors' && lowerCase == 'rock') {
- 				++gamesPlayed
- 				++winCount 
- 				return 'You Win. Rock destroys Scissors.';
- 			} else if (computerSelection === 'scissors' && lowerCase === 'paper') {
- 				++gamesPlayed
- 				compCount++
- 				return 'You Lose. Scissors cuts Paper.';
- 			} else if (computerSelection === 'paper' && lowerCase === 'scissors') {
- 				++gamesPlayed
- 				++winCount 
- 				return 'You Win. Scissors cuts Paper.'
- 			} else {
- 				compCount++
- 				++gamesPlayed
- 				return 'You Lose. Rock beats Paper.';
- 			}
- 		}
+		let tieCount = 0;
+		let compCount = 0;
+		let gamesPlayed = 0;
+		let winCount = 0;
+
+		const btnRock = document.querySelector('.rock');
+		const btnPaper = document.querySelector('.paper');
+		const btnScissors = document.querySelector('.scissors');
+
+		btnRock.addEventListener('click', () => {
+			let playerPicked = 'rock';
+			return game(playerPicked)
+		});
+		btnScissors.addEventListener('click', () => {
+			let playerPicked = 'scissors';
+			return game(playerPicked)
+		});
+		btnPaper.addEventListener('click', () => {
+			let playerPicked = 'paper';
+			return game(playerPicked)
+		});
 
 
- 	let tieCount = 0
- 	let compCount = 0
- 	let gamesPlayed = 0
- 	let 0
-  console.log(game())
+		// document.getElementById('output').innerHTML = lengthOfName;
+		// document.getElementById('output').innerHTML = lengthOfName;
 
-	</script>
+		</script>
 </body>
-</html>?
+<footer>
+
+</footer>
+</html>
