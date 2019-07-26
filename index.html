@@ -50,15 +50,15 @@
 			// Max Games Logic
 			////////////////////
 
-			// if (gamesPlayed === 5) {
-			// 	if (winCount > compCount) {
-			// 		return 'Winner! You\'ve won' + ' ' + winCount - compCount + ' ' + 'games out of 5' +
-			// 		' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
-			// 	} else {
-			// 		return 'Loser! Computer beat you by' + ' ' + compCount - winCount + ' ' + 'games out of 5.' +
-			// 	' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
-			// 	}
-			// }
+			if (gamesPlayed === 5) {
+				if (winCount > compCount) {
+					return 'Winner! You\'ve won' + ' ' + winCount - compCount + ' ' + 'games out of 5' +
+					' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
+				} else {
+					return 'Loser! Computer beat you by' + ' ' + compCount - winCount + ' ' + 'games out of 5.' +
+				' ' + 'With a total of' + ' ' + tieCount + ' ' + 'ties.';
+				}
+			}
 			const playerSelection = a;
 			const computerSelection = computerPlay();
 			return playRound(playerSelection,computerSelection)
